@@ -2,6 +2,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useUser } from '@/api/graphql/resolvers/user';
+import { useRouter } from 'next/navigation';
 
 interface ILogin {
   email: string;
@@ -17,11 +19,24 @@ const LoginSchema = Yup.object().shape({
 });
 
 export const FormLogin = () => {
+  const router = useRouter();
+  const [getUserData] = useUser();
+
   const loginFormik = useFormik<ILogin>({
     initialValues: { email: '', password: '' },
     validationSchema: LoginSchema,
-    onSubmit: (values: ILogin) => {
-      console.log(values);
+    onSubmit: async (values: ILogin) => {
+      try {
+        const { data } = await getUserData({
+          variables: { emails: values.email }
+        });
+        console.log('data', data);
+        if (data && data.accounts && data.accounts.length) {
+          router.push('/home');
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   });
 
