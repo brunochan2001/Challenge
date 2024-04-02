@@ -2,9 +2,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useUser } from '@/api/graphql/resolvers/user';
-import { useRouter } from 'next/navigation';
-import { setCookies } from '@/lib/cookies';
+import { useLogin } from '@/hooks/useLogin';
 
 interface ILogin {
   email: string;
@@ -20,25 +18,13 @@ const LoginSchema = Yup.object().shape({
 });
 
 export const FormLogin = () => {
-  const router = useRouter();
-  const [getUserData] = useUser();
+  const { handleLogin, loading } = useLogin();
 
   const loginFormik = useFormik<ILogin>({
     initialValues: { email: '', password: '' },
     validationSchema: LoginSchema,
     onSubmit: async (values: ILogin) => {
-      try {
-        const { data } = await getUserData({
-          variables: { emails: values.email }
-        });
-        if (data && data.accounts && data.accounts.length) {
-          console.log('entro');
-          setCookies('user_challenge', JSON.stringify(data.accounts));
-          router.push('/products');
-        }
-      } catch (error) {
-        console.log(error);
-      }
+      await handleLogin(values);
     }
   });
 
@@ -76,6 +62,7 @@ export const FormLogin = () => {
         <button
           className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-[#004AC9]"
           type="submit"
+          disabled={loading}
         >
           <p className=" text-white font-bold">Iniciar Sesión</p>
         </button>

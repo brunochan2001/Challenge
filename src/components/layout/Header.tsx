@@ -8,7 +8,7 @@ import {
   DropdownTrigger
 } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { deleteCookie } from '@/lib/cookies';
+import { deleteCookie } from '@/utils/cookies';
 
 const UserIcon = () => {
   return (

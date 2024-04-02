@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { IProduct } from '@/interfaces/product';
-import { useProduct } from '@/api/graphql/resolvers/products';
 import { TableProducts } from '@/components/table/tableProducts/TableProducts';
+import { useProducts } from '@/hooks/useProducts';
 
 interface IFilters {
   page: number;
@@ -20,8 +19,7 @@ export const TableContainer: React.FC<ITableContainer> = ({
   accountId,
   reload
 }) => {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const { handleGetProducts, products, loading } = useProducts();
   const [filters, setFilter] = useState<IFilters>({
     page: 1,
     limit: 5,
@@ -29,7 +27,6 @@ export const TableContainer: React.FC<ITableContainer> = ({
     skus: '',
     _id: accountId
   });
-  const [getProductData] = useProduct();
 
   useEffect(() => {
     handleGetData(filters);
@@ -53,19 +50,7 @@ export const TableContainer: React.FC<ITableContainer> = ({
     if (updatedFilters.names?.trim() === '') {
       delete updatedFilters.names;
     }
-    setLoading(true);
-    try {
-      const response = await getProductData({
-        variables: updatedFilters
-      });
-      if (response.data && response.data.products) {
-        setProducts(response.data.products);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    await handleGetProducts(updatedFilters);
   };
 
   const handleChangePage = (page: number) => {

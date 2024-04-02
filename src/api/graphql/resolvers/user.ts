@@ -3,6 +3,7 @@ import { getUserById } from '../queries/user';
 
 export const useUser = () => {
   return useLazyQuery(getUserById, {
-    context: { clientName: 'api' }
+    context: { clientName: 'api' },
+    fetchPolicy: 'network-only'
   });
 };
