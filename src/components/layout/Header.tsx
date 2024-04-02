@@ -10,6 +10,10 @@ import {
 import { useRouter } from 'next/navigation';
 import { deleteCookie } from '@/utils/cookies';
 
+interface IHeader {
+  email: string;
+}
+
 const UserIcon = () => {
   return (
     <svg
@@ -39,7 +43,7 @@ const UserIcon = () => {
   );
 };
 
-export const Header = () => {
+export const Header: React.FC<IHeader> = ({ email }) => {
   const router = useRouter();
   return (
     <div className="bg-[#004AC9] px-10">
@@ -52,7 +56,7 @@ export const Header = () => {
                 variant="bordered"
                 startContent={<UserIcon />}
               >
-                <p className="text-white">Bruno Chan</p>
+                <p className="text-white">{email}</p>
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
