@@ -1,8 +1,15 @@
-import { useQuery } from '@apollo/client';
-import { queryProduct } from '../queries/product';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { getProductByFilter, postProduct } from '../queries/product';
 
 export const useProduct = () => {
-  return useQuery(queryProduct, {
+  return useLazyQuery(getProductByFilter, {
+    context: { clientName: 'api' },
+    fetchPolicy: 'network-only'
+  });
+};
+
+export const useCreateProduct = () => {
+  return useMutation(postProduct, {
     context: { clientName: 'api' }
   });
 };

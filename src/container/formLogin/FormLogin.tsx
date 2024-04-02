@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useUser } from '@/api/graphql/resolvers/user';
 import { useRouter } from 'next/navigation';
+import { setCookies } from '@/lib/cookies';
 
 interface ILogin {
   email: string;
@@ -30,9 +31,10 @@ export const FormLogin = () => {
         const { data } = await getUserData({
           variables: { emails: values.email }
         });
-        console.log('data', data);
         if (data && data.accounts && data.accounts.length) {
-          router.push('/home');
+          console.log('entro');
+          setCookies('user_challenge', JSON.stringify(data.accounts));
+          router.push('/products');
         }
       } catch (error) {
         console.log(error);
@@ -72,7 +74,7 @@ export const FormLogin = () => {
       </div>
       <div className="flex justify-center">
         <button
-          className="bg-[#004AC9] px-6 py-3 lg:px-8 lg:py-4 rounded-md"
+          className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-[#004AC9]"
           type="submit"
         >
           <p className=" text-white font-bold">Iniciar Sesión</p>
