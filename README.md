@@ -16,6 +16,7 @@ Los commits tienen un "ID de tarea" antes de un mensaje de descripción para que
 - Utilicé Typescript por su tipado estático y sus ventajas sobre el mantenimiento, los prop-types y el flujo.
 - Para el diseño, utilicé Nextui porque tiene componentes listos para usar.
 - Decidí usar Tailwind CSS debido a que es fácil de usar y altamente personalizable.
+- Instalé la librería react-use, para usar el hook useDebounce que permite controlar la ejecución de mi función después de un cierto tiempo para realizar la solicitud de los productos mejorando el rendimiento evitando llamadas innecesarias a la Api.
 - Utilicé Apollo para GraphQL debido a su amplia gama de características y funcionalidades que facilitan la integración y gestión de consultas GraphQL.
 - Para los test solo usé jest. Por el momento solo escribí pruebas de renderizacion de productos pasando parametros para traer productos espécificos.
 
