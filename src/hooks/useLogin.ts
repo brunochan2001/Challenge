@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useUser } from '@/api/graphql/resolvers/user';
 import { setCookies } from '@/utils/cookies';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface ILogin {
   email: string;
@@ -10,23 +11,23 @@ interface ILogin {
 
 export const useLogin = () => {
   const router = useRouter();
-  const [getUserData, { data, loading }] = useUser();
+  const [getUserData, { data, loading, error }] = useUser();
 
   useEffect(() => {
-    if (!loading && data && data.accounts.length) {
-      setCookies('user_challenge', JSON.stringify(data.accounts));
-      router.push('/products');
+    if (!loading && data) {
+      if (data.accounts.length) {
+        setCookies('user_challenge', JSON.stringify(data.accounts));
+        router.push('/products');
+      } else {
+        toast.error('No existe usuario!', { position: 'top-right' });
+      }
     }
   }, [loading, data]);
 
   const handleLogin = async (data: ILogin) => {
-    try {
-      await getUserData({
-        variables: { emails: data.email }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await getUserData({
+      variables: { emails: data.email }
+    });
   };
   return { handleLogin, loading };
 };

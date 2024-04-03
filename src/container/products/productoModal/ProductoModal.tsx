@@ -4,6 +4,7 @@ import { IProduct } from '@/interfaces/product';
 import { TableProducts } from '@/components/table/tableProducts/TableProducts';
 import { useCreateProduct } from '@/api/graphql/resolvers/products';
 import { ProductForm } from './ProductForm';
+import toast from 'react-hot-toast';
 
 interface IProductoModal {
   isOpenProduct: boolean;
@@ -48,18 +49,15 @@ export const ProductoModal: React.FC<IProductoModal> = ({
   };
 
   const handleCreateProducts = async () => {
-    try {
-      const { data } = await mutateCreateProduct({
-        variables: {
-          products: products.map(({ _id, ...resto }) => resto)
-        }
-      });
-      if (data && data.createProducts) {
-        handleReload(true);
-        onCloseProduct();
+    const { data } = await mutateCreateProduct({
+      variables: {
+        products: products.map(({ _id, ...resto }) => resto)
       }
-    } catch (error) {
-      console.log(error);
+    });
+    if (data && data.createProducts) {
+      handleReload(true);
+      onCloseProduct();
+      toast.success('Productos creados!', { position: 'top-right' });
     }
   };
 

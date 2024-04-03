@@ -21,13 +21,9 @@ export const useProducts = () => {
   }, [loading, data]);
 
   const handleGetProducts = async (filters: IFilters) => {
-    try {
-      await getProductData({
-        variables: filters
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await getProductData({
+      variables: filters
+    });
   };
 
   return { products, loading, handleGetProducts };
