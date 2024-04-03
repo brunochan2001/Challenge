@@ -75,7 +75,7 @@ export const ProductoModal: React.FC<IProductoModal> = ({
       size="3xl"
       scrollBehavior="inside"
       classNames={{
-        base: 'rounded-md p-[34px] gap-6 max-h-[300px] lg:max-h-full overflow-y-auto',
+        base: 'rounded-md p-6 gap-6 max-h-[300px] lg:max-h-full overflow-y-auto',
         header: 'p-0 justify-end',
         body: 'p-0 gap-4',
         footer: 'p-0 justify-end mt-4'

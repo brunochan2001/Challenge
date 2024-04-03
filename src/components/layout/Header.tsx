@@ -46,7 +46,7 @@ const UserIcon = () => {
 export const Header: React.FC<IHeader> = ({ email }) => {
   const router = useRouter();
   return (
-    <div className="bg-[#004AC9] px-10">
+    <div className="bg-[#004AC9] px-4 lg:px-10">
       <div className="max-w-screen-2xl mx-auto py-5">
         <div className="flex justify-end">
           <Dropdown>

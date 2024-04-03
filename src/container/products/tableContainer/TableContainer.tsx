@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TableProducts } from '@/components/table/tableProducts/TableProducts';
 import { useProducts } from '@/hooks/useProducts';
-import { Button, Input } from '@nextui-org/react';
+import { Input } from '@nextui-org/react';
+import { useDebounce } from 'react-use';
 
 interface IFilters {
   page: number;
@@ -30,14 +31,18 @@ export const TableContainer: React.FC<ITableContainer> = ({
   });
 
   useEffect(() => {
-    handleGetData(filters);
-  }, []);
-
-  useEffect(() => {
     if (reload) {
       handleGetData(filters);
     }
   }, [reload]);
+
+  useDebounce(
+    () => {
+      handleSearch();
+    },
+    200,
+    [filters.names, filters.skus]
+  );
 
   const handleGetData = async (data: IFilters) => {
     const updatedFilters = {
@@ -80,30 +85,25 @@ export const TableContainer: React.FC<ITableContainer> = ({
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row gap-4 justify-between">
-        <div className="flex flex-col lg:flex-row gap-2">
-          <div className="flex gap-1 flex-col">
-            <Input
-              size="sm"
-              type="text"
-              label="Buscar por nombre"
-              value={filters.names}
-              onChange={e => setFilter({ ...filters, names: e.target.value })}
-            />
-          </div>
-          <div className="flex gap-1 flex-col">
-            <Input
-              size="sm"
-              type="text"
-              label="Buscar por skus"
-              value={filters.skus}
-              onChange={e => setFilter({ ...filters, skus: e.target.value })}
-            />
-          </div>
+      <div className="flex flex-col lg:flex-row gap-2">
+        <div className="flex gap-1 flex-col">
+          <Input
+            size="sm"
+            type="text"
+            label="Buscar por nombre"
+            value={filters.names}
+            onChange={e => setFilter({ ...filters, names: e.target.value })}
+          />
         </div>
-        <Button size="md" className="bg-[#004AC9]" onClick={handleSearch}>
-          <p className="text-white font-semibold">Buscar</p>
-        </Button>
+        <div className="flex gap-1 flex-col">
+          <Input
+            size="sm"
+            type="text"
+            label="Buscar por skus"
+            value={filters.skus}
+            onChange={e => setFilter({ ...filters, skus: e.target.value })}
+          />
+        </div>
       </div>
       <div className="flex flex-col gap-4 p-4 bg-white rounded-lg">
         <TableProducts

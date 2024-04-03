@@ -77,7 +77,7 @@ export const TableProducts: React.FC<ITableProducts> = ({
                   {product.name}
                 </TableCell>
                 <TableCell className="whitespace-nowrap">
-                  {product.sku}
+                  {product.sku ? product.sku : '-'}
                 </TableCell>
                 <TableCell className="whitespace-nowrap">
                   <div className="flex gap-2">

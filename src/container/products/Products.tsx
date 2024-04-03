@@ -20,7 +20,7 @@ export const Products: React.FC<IProducts> = ({ id }) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-4 lg:flex-row justify-between lg:items-center">
-        <p className="text-xl lg:text-4xl text-[#004AC9] font-bold">
+        <p className="text-xl lg:text-3xl text-[#004AC9] font-bold">
           Productos
         </p>
         <Button size="md" className="bg-[#004AC9]" onClick={onOpen}>
