@@ -42,7 +42,7 @@ export const TableContainer: React.FC<ITableContainer> = ({
     const updatedFilters = {
       ...data,
       names: data.names?.toLowerCase(),
-      skus: data.skus?.toLowerCase()
+      skus: data.skus
     };
     if (updatedFilters.skus?.trim() === '') {
       delete updatedFilters.skus;
@@ -98,6 +98,7 @@ export const TableContainer: React.FC<ITableContainer> = ({
               value={filters.skus}
               onChange={e => setFilter({ ...filters, skus: e.target.value })}
             />
+            <p className="text-xs text-blue-600">Escribe el sku completo</p>
           </div>
         </div>
         <button

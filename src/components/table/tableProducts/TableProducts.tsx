@@ -44,56 +44,60 @@ export const TableProducts: React.FC<ITableProducts> = ({
   }, [page, data]);
 
   return (
-    <div>
-      <Table
-        aria-label="table-products"
-        classNames={{
-          wrapper: 'rounded-md p-0 shadow-none',
-          tbody: `${itemsProducts.length > 0 ? `` : `h-[${rowsPerPage * 36}px]`}`,
-          tr: 'hover:bg-gray-100'
-        }}
-      >
-        <TableHeader className="w-full">
-          <TableColumn key="name" className="w-1/3">
-            Nombre
-          </TableColumn>
-          <TableColumn key="sku" className="w-1/3">
-            Sku
-          </TableColumn>
-          <TableColumn key="actions" className="w-1/3">
-            Acciones
-          </TableColumn>
-        </TableHeader>
-        <TableBody
-          items={itemsProducts}
-          isLoading={loading}
-          loadingContent={<Spinner />}
-          emptyContent={!loading && 'No hay productos'}
+    <>
+      <div style={{ height: `${40 + rowsPerPage * 36}px` }}>
+        <Table
+          aria-label="table-products"
+          classNames={{
+            wrapper: 'rounded-md p-0 shadow-none',
+            tbody: `${itemsProducts.length > 0 ? `` : `h-[${rowsPerPage * 36}px]`}`,
+            tr: 'hover:bg-gray-100'
+          }}
         >
-          {itemsProducts.map(product => (
-            <TableRow key={product._id}>
-              <TableCell className="whitespace-nowrap">
-                {product.name}
-              </TableCell>
-              <TableCell className="whitespace-nowrap">{product.sku}</TableCell>
-              <TableCell className="whitespace-nowrap">
-                <div className="flex gap-2">
-                  <button
-                    className="bg-red-400 px-2 rounded-md"
-                    onClick={() => {
-                      if (deleteProduct) {
-                        deleteProduct(product._id);
-                      }
-                    }}
-                  >
-                    <p className="text-white">Eliminar</p>
-                  </button>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          <TableHeader className="w-full">
+            <TableColumn key="name" className="w-1/3">
+              Nombre
+            </TableColumn>
+            <TableColumn key="sku" className="w-1/3">
+              Sku
+            </TableColumn>
+            <TableColumn key="actions" className="w-1/3">
+              Acciones
+            </TableColumn>
+          </TableHeader>
+          <TableBody
+            items={itemsProducts}
+            isLoading={loading}
+            loadingContent={<Spinner />}
+            emptyContent={!loading && 'No hay productos'}
+          >
+            {itemsProducts.map(product => (
+              <TableRow key={product._id}>
+                <TableCell className="whitespace-nowrap">
+                  {product.name}
+                </TableCell>
+                <TableCell className="whitespace-nowrap">
+                  {product.sku}
+                </TableCell>
+                <TableCell className="whitespace-nowrap">
+                  <div className="flex gap-2">
+                    <button
+                      className="bg-red-400 px-2 rounded-md"
+                      onClick={() => {
+                        if (deleteProduct) {
+                          deleteProduct(product._id);
+                        }
+                      }}
+                    >
+                      <p className="text-white">Eliminar</p>
+                    </button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
       <div className="flex justify-between flex-row-reverse w-full gap-2">
         <div className="flex items-center gap-2">
           <Button
@@ -151,6 +155,6 @@ export const TableProducts: React.FC<ITableProducts> = ({
           </Select>
         )}
       </div>
-    </div>
+    </>
   );
 };
