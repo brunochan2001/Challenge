@@ -1,8 +1,16 @@
 import Image from 'next/image';
 import LoginPortada from '@/assets/images/login.png';
 import { FormLogin } from '@/container/formLogin/FormLogin';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
+  const cookie = cookies();
+  const dataCookie = cookie.get('user_challenge');
+  if (dataCookie && dataCookie.value) {
+    return redirect('/products');
+  }
+
   return (
     <div className="flex h-screen">
       <div className="hidden bg-white lg:flex items-center justify-center flex-1">

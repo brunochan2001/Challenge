@@ -13,7 +13,10 @@ interface ILogin {
 }
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('¡Correo inválido!').required('¡Campo requerido!'),
+  email: Yup.string()
+    .email('¡Correo inválido!')
+    .trim()
+    .required('¡Campo requerido!'),
   password: Yup.string()
     .min(2, '¡Muy corto!')
     .max(50, 'Muy largo!')
@@ -30,12 +33,19 @@ export const FormLogin = () => {
     initialValues: { email: '', password: '' },
     validationSchema: LoginSchema,
     onSubmit: async (values: ILogin) => {
-      await handleLogin(values);
+      const trimmedValues = {
+        ...values,
+        email: values.email.trim()
+      };
+      await handleLogin(trimmedValues);
     }
   });
 
   return (
-    <form onSubmit={loginFormik.handleSubmit} className="flex flex-col gap-4">
+    <form
+      onSubmit={loginFormik.handleSubmit}
+      className="flex flex-col gap-4 px-4"
+    >
       <div className="flex flex-col gap-1">
         <Input
           size="sm"

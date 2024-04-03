@@ -34,6 +34,7 @@ export const TableContainer: React.FC<ITableContainer> = ({
     if (reload) {
       handleGetData(filters);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload]);
 
   useDebounce(
@@ -99,10 +100,13 @@ export const TableContainer: React.FC<ITableContainer> = ({
           <Input
             size="sm"
             type="text"
-            label="Buscar por skus"
+            label="Buscar por sku"
             value={filters.skus}
             onChange={e => setFilter({ ...filters, skus: e.target.value })}
           />
+          <p className="text-xs text-yellow-600 pl-2">
+            Escribe el sku completo
+          </p>
         </div>
       </div>
       <div className="flex flex-col gap-4 p-4 bg-white rounded-lg">

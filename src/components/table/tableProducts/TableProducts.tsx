@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Button,
   Select,
@@ -32,7 +32,7 @@ export const TableProducts: React.FC<ITableProducts> = ({
   loading,
   page
 }) => {
-  const itemsProducts: IProduct[] = React.useMemo(() => {
+  const itemsProducts: IProduct[] = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
@@ -41,6 +41,7 @@ export const TableProducts: React.FC<ITableProducts> = ({
     }
 
     return data.slice(start, end);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, data]);
 
   return (

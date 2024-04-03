@@ -22,6 +22,7 @@ export const useLogin = () => {
         toast.error('No existe usuario!', { position: 'top-right' });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, data]);
 
   const handleLogin = async (data: ILogin) => {

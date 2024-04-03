@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from './Header';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 interface ILayout {
   children: React.ReactNode;
@@ -9,7 +10,12 @@ interface ILayout {
 export const Layout: React.FC<ILayout> = ({ children }) => {
   const cookie = cookies();
   const dataCookie = cookie.get('user_challenge');
-  const user = JSON.parse(dataCookie ? dataCookie.value : '');
+  let user;
+  if (dataCookie && dataCookie.value) {
+    user = JSON.parse(dataCookie.value);
+  } else {
+    return redirect('/');
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
