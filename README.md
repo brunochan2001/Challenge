@@ -2,6 +2,8 @@
 
 Una Aplicacion de Next que muestra los productos por usuarios.
 
+[![Challenge Page](https://i.postimg.cc/D0vjzWqN/image.png)](https://i.postimg.cc/D0vjzWqN/image.png)
+
 ## Notas de desarrollo
 
 ### Organización de tareas
