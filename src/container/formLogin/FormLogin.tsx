@@ -3,6 +3,9 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useLogin } from '@/hooks/useLogin';
+import { Button, Input } from '@nextui-org/react';
+import { EyeShow } from '@/assets/icons/EyeShow';
+import { EyeHidden } from '@/assets/icons/EyeHidden';
 
 interface ILogin {
   email: string;
@@ -18,7 +21,10 @@ const LoginSchema = Yup.object().shape({
 });
 
 export const FormLogin = () => {
+  const [isVisible, setIsVisible] = React.useState(false);
   const { handleLogin, loading } = useLogin();
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const loginFormik = useFormik<ILogin>({
     initialValues: { email: '', password: '' },
@@ -31,9 +37,10 @@ export const FormLogin = () => {
   return (
     <form onSubmit={loginFormik.handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <input
-          className="px-6 py-3 rounded-md w-full"
-          placeholder="Correo electrónico"
+        <Input
+          size="sm"
+          type="text"
+          label="Correo electrónico"
           name="email"
           value={loginFormik.values.email}
           onChange={loginFormik.handleChange}
@@ -45,12 +52,26 @@ export const FormLogin = () => {
         </p>
       </div>
       <div className="flex flex-col gap-1">
-        <input
-          className="px-6 py-3 rounded-md"
-          placeholder="Contraseña"
+        <Input
+          size="sm"
+          type={isVisible ? 'text' : 'password'}
+          label="Contraseña"
           name="password"
           value={loginFormik.values.password}
           onChange={loginFormik.handleChange}
+          endContent={
+            <button
+              className="focus:outline-none"
+              type="button"
+              onClick={toggleVisibility}
+            >
+              {isVisible ? (
+                <EyeShow className="text-2xl text-default-400 pointer-events-none" />
+              ) : (
+                <EyeHidden className="text-2xl text-default-400 pointer-events-none" />
+              )}
+            </button>
+          }
         />
         <p className="text-xs text-red-500">
           {loginFormik.errors.password &&
@@ -58,14 +79,22 @@ export const FormLogin = () => {
             loginFormik.errors.password}
         </p>
       </div>
+      <p className="text-center text-sm text-gray-600 underline font-semibold">
+        Olvide mi contraseña
+      </p>
+      <p className="text-center text-sm text-gray-600">
+        ¿No tienes tu contraseña?{' '}
+        <span className="underline font-semibold">Crear una nueva cuenta</span>
+      </p>
       <div className="flex justify-center">
-        <button
-          className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-[#004AC9]"
+        <Button
+          size="md"
+          className="bg-[#004AC9]"
           type="submit"
           disabled={loading}
         >
-          <p className=" text-white font-bold">Iniciar Sesión</p>
-        </button>
+          <p className="text-white font-semibold">Iniciar Sesión</p>
+        </Button>
       </div>
     </form>
   );

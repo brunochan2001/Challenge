@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader
+} from '@nextui-org/react';
 import { IProduct } from '@/interfaces/product';
 import { TableProducts } from '@/components/table/tableProducts/TableProducts';
 import { useCreateProduct } from '@/api/graphql/resolvers/products';
@@ -88,6 +94,7 @@ export const ProductoModal: React.FC<IProductoModal> = ({
             <ModalBody>
               <div className="flex flex-col gap-4">
                 <ProductForm handleAddProduct={handleAddProduct} />
+                <p>Lista de productos</p>
                 <TableProducts
                   page={pageProduct}
                   data={products}
@@ -96,13 +103,15 @@ export const ProductoModal: React.FC<IProductoModal> = ({
                   handleChangepage={handleChangepage}
                 />
                 <div className="flex flex-col gap-2 lg:flex-row lg:justify-end">
-                  <button
+                  <Button
                     type="button"
-                    className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-[#004AC9]"
+                    size="md"
+                    className="bg-[#004AC9]"
                     onClick={handleCreateProducts}
+                    isDisabled={!products.length}
                   >
-                    <p className="font-bold leading-4 text-[#fff]">Crear</p>
-                  </button>
+                    <p className="text-white font-semibold">Crear productos</p>
+                  </Button>
                 </div>
               </div>
             </ModalBody>

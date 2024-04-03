@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TableProducts } from '@/components/table/tableProducts/TableProducts';
 import { useProducts } from '@/hooks/useProducts';
+import { Button, Input } from '@nextui-org/react';
 
 interface IFilters {
   page: number;
@@ -82,33 +83,29 @@ export const TableContainer: React.FC<ITableContainer> = ({
       <div className="flex flex-col lg:flex-row gap-4 justify-between">
         <div className="flex flex-col lg:flex-row gap-2">
           <div className="flex gap-1 flex-col">
-            <input
-              className="px-6 py-3 rounded-md w-full border"
-              placeholder="Buscar por nombre"
-              name="name"
+            <Input
+              size="sm"
+              type="text"
+              label="Buscar por nombre"
               value={filters.names}
               onChange={e => setFilter({ ...filters, names: e.target.value })}
             />
           </div>
           <div className="flex gap-1 flex-col">
-            <input
-              className="px-6 py-3 rounded-md w-full border"
-              placeholder="Buscar por sku"
-              name="sku"
+            <Input
+              size="sm"
+              type="text"
+              label="Buscar por skus"
               value={filters.skus}
               onChange={e => setFilter({ ...filters, skus: e.target.value })}
             />
-            <p className="text-xs text-blue-600">Escribe el sku completo</p>
           </div>
         </div>
-        <button
-          className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-[#004AC9]"
-          onClick={handleSearch}
-        >
-          Buscar
-        </button>
+        <Button size="md" className="bg-[#004AC9]" onClick={handleSearch}>
+          <p className="text-white font-semibold">Buscar</p>
+        </Button>
       </div>
-      <div className="flex flex-col gap-4 p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-4 p-4 bg-white rounded-lg">
         <TableProducts
           data={products}
           handleChangepage={handleChangePage}

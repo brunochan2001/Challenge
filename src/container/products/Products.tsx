@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useDisclosure } from '@nextui-org/react';
+import { Button, useDisclosure } from '@nextui-org/react';
 import { ProductoModal } from './productoModal/ProductoModal';
 import { TableContainer } from './tableContainer/TableContainer';
 
@@ -23,12 +23,9 @@ export const Products: React.FC<IProducts> = ({ id }) => {
         <p className="text-xl lg:text-4xl text-[#004AC9] font-bold">
           Productos
         </p>
-        <button
-          className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-[#004AC9]"
-          onClick={onOpen}
-        >
-          Crear producto
-        </button>
+        <Button size="md" className="bg-[#004AC9]" onClick={onOpen}>
+          <p className="text-white font-semibold">Crear producto</p>
+        </Button>
       </div>
       <TableContainer accountId={accountId} reload={reload} />
       <ProductoModal

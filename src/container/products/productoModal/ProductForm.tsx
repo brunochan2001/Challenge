@@ -1,4 +1,5 @@
 import { IProduct } from '@/interfaces/product';
+import { Button, Input } from '@nextui-org/react';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
@@ -27,15 +28,10 @@ export const ProductForm: React.FC<IProductForm> = ({ handleAddProduct }) => {
     <form className="flex flex-col gap-2" onSubmit={productFormik.handleSubmit}>
       <div className="flex flex-col lg:flex-row gap-2">
         <div className="flex gap-1 flex-col flex-1">
-          <label
-            className="font-semibold text-xs leading-3	text-[#3F5061]"
-            htmlFor="name"
-          >
-            Nombre
-          </label>
-          <input
-            className="px-6 py-3 rounded-md w-full border"
-            placeholder="Escribe el nombre"
+          <Input
+            size="sm"
+            type="text"
+            label="Escribe el nombre"
             name="name"
             value={productFormik.values.name}
             onChange={productFormik.handleChange}
@@ -47,15 +43,10 @@ export const ProductForm: React.FC<IProductForm> = ({ handleAddProduct }) => {
           </p>
         </div>
         <div className="flex gap-1 flex-col flex-1">
-          <label
-            className="font-semibold text-xs leading-3	text-[#3F5061]"
-            htmlFor="sku"
-          >
-            Sku
-          </label>
-          <input
-            className="px-6 py-3 rounded-md w-full border"
-            placeholder="Escribe el sku"
+          <Input
+            size="sm"
+            type="text"
+            label="Escribe el sku"
             name="sku"
             value={productFormik.values.sku}
             onChange={productFormik.handleChange}
@@ -68,12 +59,9 @@ export const ProductForm: React.FC<IProductForm> = ({ handleAddProduct }) => {
         </div>
       </div>
       <div className="flex justify-end">
-        <button
-          className="px-4 h-10 lg:px-14 lg:h-14 rounded-md text-white font-bold bg-green-600"
-          type="submit"
-        >
-          Agregar
-        </button>
+        <Button type="submit" size="md" color="success">
+          <p className="text-white font-semibold">Agregar</p>
+        </Button>
       </div>
     </form>
   );

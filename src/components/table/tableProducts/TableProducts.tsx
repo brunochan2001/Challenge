@@ -102,7 +102,6 @@ export const TableProducts: React.FC<ITableProducts> = ({
         <div className="flex items-center gap-2">
           <Button
             size="sm"
-            variant="flat"
             className="bg-gray-200"
             onPress={() => handleChangepage(page - 1)}
           >
@@ -111,7 +110,6 @@ export const TableProducts: React.FC<ITableProducts> = ({
           <p className="font-bold">{page}</p>
           <Button
             size="sm"
-            variant="flat"
             className="bg-gray-200"
             onPress={() => handleChangepage(page + 1)}
           >
